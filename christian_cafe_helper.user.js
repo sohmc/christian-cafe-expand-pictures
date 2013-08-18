@@ -42,7 +42,20 @@ function whereami() {
 
 function expand_images() {
     j$('a.imageLink').each(function() {
-        var img = $(this).attr('onmouseover');
+        var img = j$(this).attr('onmouseover');
+
+        var regexp = new RegExp("src=\\\\'(https:.*jpg)\\\\'");
+        var match = regexp.exec(img);
+
+        if (match != null) {
+            GM_log("Changed.");
+            src = match[1];
+            j$(this).find('img').first().attr('src', src);
+            j$(this).find('img').first().removeAttr('width');
+            j$(this).removeAttr('onmouseover');
+        } else {
+            GM_log("no match found for " + img);
+        }
 
     });
 }
