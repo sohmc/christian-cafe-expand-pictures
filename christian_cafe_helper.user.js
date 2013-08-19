@@ -5,7 +5,7 @@
 // @description Helps you navigate on ChristianCafe
 // @version     0.1
 // @license     GPL 3.0 
-// @include     https://www.christiancafe.com/members/quickmatch/index.jsp
+// @include     https://www.christiancafe.com/*
 //
 // @grant       GM_log
 // @require     http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js
@@ -35,13 +35,11 @@ function load_jQuery() {
 }
 
 function whereami() {
-    if (RegExp("quickmatch").test(window.location.href)) {
-        expand_images();
-    }
+    expand_images();
 }
 
 function expand_images() {
-    j$('a.imageLink').each(function() {
+    j$('imageLink').each(function() {
         var img = j$(this).attr('onmouseover');
 
         var regexp = new RegExp("src=\\\\'(https:.*jpg)\\\\'");
