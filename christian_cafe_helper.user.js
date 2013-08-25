@@ -25,7 +25,7 @@ function load_jQuery() {
         else 
             j$ = jQuery.noConflict();
 
-        whereami();
+        expand_images();
     } else if (++j$ < 5) {
         GM_log('jQuery == ' + typeof jQuery);
         setTimeout(doDetect, 1500);
@@ -34,12 +34,8 @@ function load_jQuery() {
     }
 }
 
-function whereami() {
-    expand_images();
-}
-
 function expand_images() {
-    j$('imageLink').each(function() {
+    j$('.imageLink').each(function() {
         var img = j$(this).attr('onmouseover');
 
         var regexp = new RegExp("src=\\\\'(https:.*jpg)\\\\'");
@@ -50,24 +46,11 @@ function expand_images() {
             src = match[1];
             j$(this).find('img').first().attr('src', src);
             j$(this).find('img').first().removeAttr('width');
+            j$(this).find('img').first().removeAttr('height');
             j$(this).removeAttr('onmouseover');
         } else {
             GM_log("no match found for " + img);
         }
 
     });
-}
-
-
-
-// =-=-=- Utilities -=-=-= //
-
-function unix_to_string(ut) {
-    var d = new Date(ut);
-
-    var m = d.getMonth() + 1;
-    var day = d.getDate();
-    var y = d.getFullYear();
-
-    return m + '/' + day + '/' + y;
 }
