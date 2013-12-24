@@ -3,7 +3,7 @@
 // @author      Michael Soh 
 // @namespace   christian-cafe-helper-SJNMMFP08Q
 // @description Helps you navigate on ChristianCafe
-// @version     0.1
+// @version     0.2
 // @license     GPL 3.0 
 // @include     https://www.christiancafe.com/*
 //
@@ -51,6 +51,21 @@ function expand_images() {
         } else {
             GM_log("no match found for " + img);
         }
+    });
 
+    j$('img[id^="photo_"]').each(function() {
+        var regexp = new RegExp("photo_(.*jpg)");
+        var match = regexp.exec(this.id);
+
+        if (match != null) {
+            GM_log("Changed.");
+            src = match[1];
+            this.src = src;
+            this.removeAttribute('width');
+            this.removeAttribute('height');
+            this.removeAttribute('onmouseover');
+        } else {
+            GM_log("no match found for " + img);
+        }
     });
 }
